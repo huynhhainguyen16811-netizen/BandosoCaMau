@@ -1,0 +1,191 @@
+/* --- BIẾN MÀU VÀ THIẾT KẾ CHUNG --- */
+:root {
+    --primary-color: #005f73;
+    --secondary-color: #ee9b00;
+    --tertiary-color: #e76f51;
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --white-color: #fff;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --header-height: 65px;
+    --font-family: 'Be Vietnam Pro', sans-serif;
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+body, html {
+    margin: 0; padding: 0; font-family: var(--font-family);
+    background-color: var(--background-color); color: var(--text-color);
+    overflow: hidden; height: 100vh; width: 100vw;
+}
+
+/* --- HIỆU ỨNG TẢI TRANG --- */
+#loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 9999;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+.spinner {
+    border: 8px solid #e9ecef; border-top: 8px solid var(--primary-color);
+    border-radius: 50%; width: 60px; height: 60px;
+    animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+#loader p { margin-top: 20px; font-size: 1.2em; color: var(--primary-color); font-weight: 500; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- HEADER --- */
+header {
+    height: var(--header-height); background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 30px; box-shadow: var(--shadow-light);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1001; position: relative;
+}
+header h1 { margin: 0; font-size: 1.5em; font-weight: 800; color: var(--primary-color); }
+header nav a {
+    color: var(--primary-color); text-decoration: none; font-weight: 700;
+    font-size: 1.05em; padding: 10px 20px; border-radius: 8px;
+    transition: all 0.2s ease-out;
+}
+header nav a:hover { color: var(--secondary-color); background-color: rgba(0, 95, 115, 0.05); }
+header nav a:active { transform: scale(0.96); }
+
+/* --- KHU VỰC CHÍNH --- */
+main { display: flex; height: calc(100vh - var(--header-height)); }
+#map-container { flex-grow: 1; height: 100%; }
+#map { width: 100%; height: 100%; background-color: #a2d2ff; filter: sepia(15%) brightness(105%); }
+
+/* --- SIDEBAR --- */
+#info-sidebar {
+    width: 420px; flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: -10px 0 35px rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute; right: 0; top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    z-index: 1000; display: flex; flex-direction: column;
+}
+#info-sidebar.hidden { transform: translateX(100%); }
+.sidebar-content { height: 100%; display: flex; flex-direction: column; }
+#close-sidebar-btn {
+    position: absolute; top: 15px; right: 15px; background: none; border: none;
+    font-size: 2em; cursor: pointer; color: #555;
+    transition: transform 0.3s ease, color 0.3s ease; line-height: 1;
+}
+#close-sidebar-btn:hover { transform: rotate(90deg); color: var(--tertiary-color); }
+#point-title {
+    padding: 30px 30px 15px; margin: 0; color: var(--primary-color);
+    font-weight: 800; font-size: 1.8em; animation: slideInUp 0.5s ease forwards;
+}
+/* Staggered animation for content */
+#info-sidebar:not(.hidden) .tab-nav { animation: slideInUp 0.5s 0.1s ease forwards; }
+#info-sidebar:not(.hidden) .tab-content-container { animation: slideInUp 0.5s 0.2s ease forwards; }
+
+.tab-nav { display: flex; padding: 0 20px; border-bottom: 1px solid var(--border-color); }
+.tab-btn {
+    flex: 1; padding: 15px 10px; border: none; background: none;
+    cursor: pointer; font-weight: 700; color: #666; font-size: 1em;
+    border-bottom: 4px solid transparent; transition: all 0.3s ease;
+}
+.tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+.tab-content-container { padding: 25px; flex-grow: 1; overflow-y: auto; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+
+.media-gallery img { width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: var(--shadow-medium); }
+h3 { color: var(--primary-color); border-left: 4px solid var(--secondary-color); padding-left: 10px; margin: 25px 0 10px; }
+p { line-height: 1.7; color: #444; }
+
+/* Buttons & Forms */
+button { transition: all 0.2s ease-out; }
+button:active { transform: scale(0.97); }
+#coop-btn, #quiz-submit-btn, #start-explore-btn {
+    width: 100%; padding: 15px;
+    background: linear-gradient(45deg, var(--secondary-color), #ffbe0b);
+    border: none; border-radius: 8px; font-size: 1.1em;
+    font-weight: 700; color: var(--primary-color); cursor: pointer;
+    margin-top: 20px; box-shadow: var(--shadow-light);
+}
+#coop-btn:hover, #quiz-submit-btn:hover, #start-explore-btn:hover {
+    transform: translateY(-3px); box-shadow: var(--shadow-medium);
+}
+#quiz-form label {
+    display: block; padding: 12px 15px; background-color: rgba(0, 95, 115, 0.05);
+    border: 2px solid transparent; border-radius: 8px;
+    margin-bottom: 10px; cursor: pointer; transition: all 0.3s ease;
+}
+#quiz-form label:hover { border-color: var(--secondary-color); }
+#quiz-result { margin-top: 15px; font-weight: 500; height: 20px; }
+
+/* --- MODALS --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000; opacity: 1; transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+.modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.modal-content {
+    background: var(--white-color); padding: 35px; border-radius: 16px;
+    max-width: 650px; width: 90%; position: relative;
+    box-shadow: var(--shadow-medium); animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.close-modal-btn {
+    position: absolute; top: 15px; right: 20px; background: none; border: none;
+    font-size: 2em; cursor: pointer; color: #777; line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.close-modal-btn:hover { transform: rotate(90deg); color: var(--tertiary-color); }
+#cultural-media-content iframe {
+    width: 100%; height: 320px; border: none; border-radius: 12px; margin: 15px 0;
+}
+
+/* --- MAP ICONS & TOOLTIPS --- */
+.map-icon {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 50%; background: var(--white-color);
+    box-shadow: 0 0 0 4px var(--primary-color);
+}
+.map-icon:hover { transform: scale(1.2); }
+.map-icon.locked { filter: grayscale(1) opacity(0.6); box-shadow: none; }
+
+/* Custom Tooltip */
+.leaflet-tooltip.custom-tooltip {
+    background-color: rgba(0, 95, 115, 0.9);
+    border: none;
+    box-shadow: var(--shadow-light);
+    color: var(--white-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+.leaflet-tooltip-left.custom-tooltip::before { border-left-color: rgba(0, 95, 115, 0.9); }
+.leaflet-tooltip-right.custom-tooltip::before { border-right-color: rgba(0, 95, 115, 0.9); }
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* WOW Effect: Starburst on Unlock */
+.starburst {
+    position: absolute; width: 1px; height: 1px;
+    background: transparent; left: 50%; top: 50%;
+    transform-origin: center;
+    pointer-events: none;
+}
+.starburst div {
+    position: absolute; width: 3px; height: 40px;
+    background: linear-gradient(to top, transparent, var(--secondary-color));
+    transform-origin: top center;
+}

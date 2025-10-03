@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Đồ Số Thông Minh – Học Và Làm Kinh Tế Từ Quê Hương Cà Mau</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Đang tải bản đồ tri thức...</p>
+    </div>
+
+    <header>
+        <div class="logo">
+            <h1>Bản Đồ Số Bạc Liêu - Cà Mau</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" id="tour-link">Tour Khám Phá 🗺️</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+
+        <aside id="info-sidebar" class="hidden">
+            <button id="close-sidebar-btn" title="Đóng">&times;</button>
+            <div class="sidebar-content">
+                <h2 id="point-title"></h2>
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="tab-san-vat">Sản vật 💎</button>
+                    <button class="tab-btn" data-tab="tab-ket-noi">Kết nối 🤝</button>
+                    <button class="tab-btn" data-tab="tab-goc-stem">Góc STEM 🔬</button>
+                </div>
+                <div class="tab-content-container">
+                    <div id="tab-san-vat" class="tab-content active">
+                        <div id="point-media" class="media-gallery"></div>
+                        <h3>Mô tả Sản vật</h3>
+                        <p id="point-description"></p>
+                        <h3>Câu chuyện Bản địa</h3>
+                        <p id="point-story"></p>
+                    </div>
+                    <div id="tab-ket-noi" class="tab-content">
+                        <h3>Thông tin Hợp tác xã (Mô phỏng)</h3>
+                        <div id="htx-info">
+                            <p><strong>Tên đơn vị:</strong> <span id="htx-name"></span></p>
+                            <p><strong>Đại diện:</strong> <span id="htx-representative"></span></p>
+                            <p><strong>Điện thoại:</strong> <span id="htx-phone"></span></p>
+                            <p><strong>Sản phẩm:</strong> <span id="htx-product"></span></p>
+                        </div>
+                        <button id="coop-btn">Tìm hiểu cơ hội hợp tác</button>
+                    </div>
+                    <div id="tab-goc-stem" class="tab-content">
+                        <h3 id="stem-title"></h3>
+                        <p id="stem-content"></p>
+                        <hr>
+                        <h4>Thử thách "Mở khóa Bản đồ"</h4>
+                        <form id="quiz-form">
+                            <p id="quiz-question"></p>
+                            <div id="quiz-options"></div>
+                            <button type="submit" id="quiz-submit-btn">Trả lời</button>
+                            <p id="quiz-result"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <div id="welcome-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h2>Chào mừng đến với Bản đồ số Cà Mau!</h2>
+            <p>Hãy bắt đầu hành trình khám phá các vùng kinh tế, văn hóa và giải những câu đố STEM thú vị để "mở khóa" toàn bộ bản đồ tri thức về quê hương bạn nhé!</p>
+            <button id="start-explore-btn">Bắt đầu khám phá!</button>
+        </div>
+    </div>
+    
+    <div id="cultural-modal" class="modal-overlay hidden">
+         <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h2 id="cultural-title"></h2>
+            <div id="cultural-media-content"></div>
+            <p id="cultural-description"></p>
+        </div>
+    </div>
+
+    <div id="notification-modal" class="modal-overlay hidden">
+        <div class="modal-content small-modal">
+            <button class="close-modal-btn">&times;</button>
+            <p id="notification-message"></p>
+        </div>
+    </div>
+
+    <div id="tour-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h2>Chọn Tour Khám Phá</h2>
+            <div id="tour-options-container"></div>
+        </div>
+    </div>
+
+    <script src="data/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
